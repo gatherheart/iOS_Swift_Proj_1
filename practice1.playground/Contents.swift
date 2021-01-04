@@ -54,3 +54,61 @@ print(convertToInches(fromCM: 0.4))
 print(convertToInches(fromMeter: 1.5))
 print(convertToInches(fromMeter: 0.4))
 
+
+// Mission Pre
+let http404Error = (404, "Not Found")
+// http404Error is of type (Int, String), and equals (404, "Not Found")
+
+
+let (statusCode, statusMessage) = http404Error
+print("The status code is \(statusCode)")
+// Prints "The status code is 404"
+print("The status message is \(statusMessage)")
+// Prints "The status message is Not Found"
+
+print("The status code is \(http404Error.0)")
+// Prints "The status code is 404"
+print("The status message is \(http404Error.1)")
+// Prints "The status message is Not Found"
+
+let http200Status = (statusCode: 200, description: "OK")
+struct Resolution {
+    var width = 0
+    var height = 0
+}
+let someResolution = Resolution()
+print(someResolution.width)
+
+let vga = Resolution(width: 640, height: 480)
+
+// Mission #2
+
+struct Rectangle {
+    var leftTopX: Float = 0, leftTopY: Float = 0
+    var rightBottomX: Float = 0, rightBottomY: Float = 0
+    // coordinates of all vertex of rectangle
+    func printRect() {
+        print((self.leftTopX, self.leftTopY), (self.rightBottomX, self.leftTopY),
+              (self.rightBottomX, self.rightBottomY),
+              (self.leftTopX, rightBottomY))
+    }
+    // area of rectangle
+    func printArea() {
+        print((self.rightBottomX - self.leftTopX) * (self.leftTopY - self.rightBottomY))
+    }
+    // center of rectangle
+    func printCenter() {
+        print(((self.rightBottomX + self.leftTopX) / 2,  (self.leftTopY + self.rightBottomY) / 2))
+    }
+}
+
+let rect = Rectangle(leftTopX: 5, leftTopY: 11, rightBottomX: 15, rightBottomY: 4)
+
+rect.printRect()
+rect.printArea()
+
+let rect2 = Rectangle(leftTopX: 4.5, leftTopY: 10.5, rightBottomX: 15, rightBottomY: 3.5)
+
+rect2.printRect()
+rect2.printArea()
+rect2.printCenter()
