@@ -10,15 +10,12 @@ written by bean.milky
 enum FrameColor {
     case white, black, yellow, red, blue, green, brown, cyan, purple, pink, orange, gray
 }
-extension String: Error {}
 
-func randomString(length: Int) -> String {
-  let letters = "abcdefghijklmnopqrstuvwxyz0123456789"
-  return String((0..<length).map{ _ in letters.randomElement()! })
-}
-
-func idGenerator() -> String {
-    return "\(randomString(length: 3))-\(randomString(length: 3))-\(randomString(length: 3))"
+class Utils {
+    public static func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyz0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
 }
 
 protocol FrameProtocol {
@@ -62,8 +59,12 @@ class Frame: FrameProtocol {
         return "Frame:(\(fid)) \(self.color)"
     }
     
+    private class func idGenerator() -> String {
+        return "\(Utils.randomString(length: 3))-\(Utils.randomString(length: 3))-\(Utils.randomString(length: 3))"
+    }
+    
     public init(origin: CGPoint, size: CGSize){
-        self.fid = idGenerator()
+        self.fid = Frame.idGenerator()
         self.origin = origin
         self.absoluteOrigin = CGPoint(x: origin.x, y: origin.y)
         self.size = size
@@ -75,7 +76,7 @@ class Frame: FrameProtocol {
     }
     
     public init(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat){
-        self.fid = idGenerator()
+        self.fid = Frame.idGenerator()
         self.origin = CGPoint(x: x, y: y)
         self.absoluteOrigin = CGPoint(x: x, y: y)
         self.size = CGSize(width: width, height: height)
@@ -245,4 +246,3 @@ print("point\((196, 716)) => \(convert4) \(frame7.isPoint(inside: convert4))")
 print("point\((324, 716)) => \(convert5) \(frame7.isPoint(inside: convert5))")
 print("point\((450, 716)) => \(convert6) \(frame7.isPoint(inside: convert6))")
 
-frame4.convert(point: CGPoint(x: 10, y: 10), from: nil)
