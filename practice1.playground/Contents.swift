@@ -63,7 +63,6 @@ class Frame: FrameProtocol {
     }
     
     public init(origin: CGPoint, size: CGSize){
-        
         self.fid = idGenerator()
         self.origin = origin
         self.absoluteOrigin = CGPoint(x: origin.x, y: origin.y)
@@ -76,7 +75,6 @@ class Frame: FrameProtocol {
     }
     
     public init(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat){
-        
         self.fid = idGenerator()
         self.origin = CGPoint(x: x, y: y)
         self.absoluteOrigin = CGPoint(x: x, y: y)
@@ -132,9 +130,9 @@ class Frame: FrameProtocol {
     }
     // 해당 좌표를 기준으로 가장 위에 있는 하위 frame을 찾아서 리턴
     public func hitTest(point: CGPoint) -> Frame? {
-        
+        // point, which is relative to current frame
         let _point = CGPoint(x: point.x - self.origin.x, y: point.y - self.origin.y)
-        if self.subFrames.isEmpty && self.isInside(inside: _point){
+        if self.subFrames.isEmpty && self.isPoint(inside: _point){
             return self
         }
         for sub in self.subFrames.reversed() {
@@ -142,15 +140,7 @@ class Frame: FrameProtocol {
                 return ret
             }
         }
-        return self.isInside(inside: point) ? self : nil
-    }
-    
-    public func isInside(inside: CGPoint) -> Bool {
-        if inside.x < self.origin.x || inside.x > self.origin.x + self.size.width
-            || inside.y < self.origin.y || inside.y > self.origin.y + self.size.height {
-            return false
-        }
-        return true
+        return self.isPoint(inside: _point) ? self : nil
     }
     
     public func isPoint(inside: CGPoint) -> Bool {
