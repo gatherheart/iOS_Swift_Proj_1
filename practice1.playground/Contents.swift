@@ -183,6 +183,12 @@ class Frame: FrameProtocol {
             return _to.convert(point: point, from: self)
         }
     }
+    
+    public func printHitTestResult(point: CGPoint) {
+        if let result = self.hitTest(point: point) {
+            print("point\((Int(point.x), Int(point.y))) --> \(result.shortDescription)")
+        }
+    }
 }
 
 let frame1 = Frame(origin: CGPoint(x: 0, y: 0), size: CGSize(width:768, height:1024)) // white
@@ -219,20 +225,19 @@ print(">> recursiveDescription")
 print(frame1.recursiveDescription())
 
 print(">> hitTest")
-print("point\((128, 200)) --> \(frame1.hitTest(point: CGPoint(x: 128, y: 200))!.shortDescription)")
-print("point\((255, 200)) --> \(frame1.hitTest(point: CGPoint(x: 255, y: 200))!.shortDescription)")
-print("point\((382, 200)) --> \(frame1.hitTest(point: CGPoint(x: 382, y: 200))!.shortDescription)")
-print("point\((196, 716)) --> \(frame1.hitTest(point: CGPoint(x: 196, y: 716))!.shortDescription)")
-print("point\((324, 716)) --> \(frame1.hitTest(point: CGPoint(x: 324, y: 716))!.shortDescription)")
-print("point\((450, 716)) --> \(frame1.hitTest(point: CGPoint(x: 450, y: 716))!.shortDescription)")
-
+frame1.printHitTestResult(point: CGPoint(x: 128, y: 200))
+frame1.printHitTestResult(point: CGPoint(x: 255, y: 200))
+frame1.printHitTestResult(point: CGPoint(x: 382, y: 200))
+frame1.printHitTestResult(point: CGPoint(x: 196, y: 716))
+frame1.printHitTestResult(point: CGPoint(x: 324, y: 716))
+frame1.printHitTestResult(point: CGPoint(x: 450, y: 716))
 print()
+
 print(">> point")
 print("\(frame8.shortDescription) contains")
 let convert1 = frame8.convert(point: CGPoint(x: 128, y: 200), from: frame1)
 let convert2 = frame8.convert(point: CGPoint(x: 255, y: 200), from: frame1)
 let convert3 = frame8.convert(point: CGPoint(x: 382, y: 200), from: frame1)
-
 print("point\((128, 200)) => \(convert1) \(frame8.isPoint(inside: convert1))")
 print("point\((255, 200)) => \(convert2) \(frame8.isPoint(inside: convert2))")
 print("point\((382, 200)) => \(convert3) \(frame8.isPoint(inside: convert3))")
@@ -241,7 +246,6 @@ print("\(frame7.shortDescription) contains")
 let convert4 = frame7.convert(point: CGPoint(x: 196, y: 716), from: frame1)
 let convert5 = frame7.convert(point: CGPoint(x: 324, y: 716), from: frame1)
 let convert6 = frame7.convert(point: CGPoint(x: 450, y: 716), from: frame1)
-
 print("point\((196, 716)) => \(convert4) \(frame7.isPoint(inside: convert4))")
 print("point\((324, 716)) => \(convert5) \(frame7.isPoint(inside: convert5))")
 print("point\((450, 716)) => \(convert6) \(frame7.isPoint(inside: convert6))")
